@@ -52,8 +52,8 @@ func shoot():
 
 	var bullet_ins = bullet.instantiate()
 
-	# Offset for bullet spawn (in front of player)
-	var offset = Vector2(20, 0)
+	# Offset for bullet spawn (in front of player and slightly above)
+	var offset = Vector2(19, -16)  # 20 to the side, 10 up
 	offset.x *= -1 if anime.flip_h else 1
 	bullet_ins.position = global_position + offset
 

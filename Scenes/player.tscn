@@ -111,5 +111,8 @@ frame = 3
 frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(5, -20)
+visible = false
+position = Vector2(1.66667, -20)
 shape = SubResource("CapsuleShape2D_v0iea")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
