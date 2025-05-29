@@ -3,16 +3,27 @@ extends CharacterBody2D
 @onready var anime: AnimatedSprite2D = $AnimatedSprite2D
 var SPEED = 120.0
 var JUMP_VELOCITY = -250.0
-var GRAVITY = 600.0  # You can tweak thisO
+var GRAVITY = 600.0
 @export var can_move :bool = true
 var ccjump: int = -1
 @export var can_shoot: bool = true
 var bullet = preload("res://Scenes/bullet.tscn")
+@onready var health: TextureProgressBar = $CanvasLayer/Label/health
+@onready var regen: Timer = $regen
 
+func _ready() -> void: 
+	$CollisionShape2D.disabled = false
 
 func _physics_process(delta: float) -> void:
-	if can_move:
-		move()
+	if health.value <= 0:
+		$CollisionShape2D.disabled = true
+	else:
+		if can_move:
+			move()
+	if health.value < 10:
+		$regen.start()
+	elif health.value == 10:
+		$regen.stop()
 
 func move():
 	# Add gravity
@@ -43,6 +54,11 @@ func move():
 		if Input.is_action_just_pressed("shoot"):
 			shoot()
 
+	
+	if Input.is_action_just_pressed("double") and $CanvasLayer/ProgressBar.value == 10:
+		ddshoot()
+		$CanvasLayer/ProgressBar.value = 0
+
 	# Apply movement
 	move_and_slide()
 
@@ -65,3 +81,35 @@ func shoot():
 	await anime.animation_finished
 
 	can_shoot = false
+
+func ddshoot():
+	anime.play("shoot")
+	var bullet_ins = bullet.instantiate()
+	var bulleyt_ins2 = bullet.instantiate()
+	
+	# Offset for bullet spawn (in front of player and slightly above)
+	var offset = Vector2(19, -16) 
+	offset.x *= -1 if anime.flip_h else 1
+	bullet_ins.position = global_position + offset
+	
+	var offset2 = Vector2(31, -26)  
+	offset2.x *= -1 if anime.flip_h else 1
+	bulleyt_ins2.position = global_position + offset2
+	
+	
+	# Set bullet direction
+	bullet_ins.direction = Vector2.LEFT if anime.flip_h else Vector2.RIGHT
+	bulleyt_ins2.direction = Vector2.LEFT if anime.flip_h else Vector2.RIGHT
+	
+	
+	get_parent().add_child(bullet_ins)
+	get_parent().add_child(bulleyt_ins2)
+	
+	await anime.animation_finished
+	$CanvasLayer/ProgressBar/AnimationPlayer.play("new_animation")
+
+func deplet():
+	health.value -= randi_range(1 , 3)
+
+func _on_regen_timeout() -> void:
+	health.value += randi_range(1 , 3)

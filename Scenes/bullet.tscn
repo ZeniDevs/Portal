@@ -19,7 +19,7 @@ animations = [{
 }]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_oduel"]
-a = Vector2(-9, 0)
+a = Vector2(11.1429, 0)
 b = Vector2(18, 0)
 
 [node name="bullet" type="Area2D"]
@@ -32,6 +32,7 @@ autoplay = "default"
 frame_progress = 0.0744588
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(-4, 0)
 shape = SubResource("SegmentShape2D_oduel")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

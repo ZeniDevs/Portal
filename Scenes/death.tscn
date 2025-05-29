@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://detnro7hnl26b"]
+
+[sub_resource type="GDScript" id="GDScript_bjjef"]
+script/source = "extends CPUParticles2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	emitting = true
+
+func _process(delta: float) -> void:
+	if emitting == false:
+		queue_free()
+"
+
+[node name="CPUParticles2D" type="CPUParticles2D"]
+emitting = false
+amount = 26
+lifetime = 0.72
+one_shot = true
+explosiveness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(1, 1)
+initial_velocity_min = 161.62
+initial_velocity_max = 434.34
+scale_amount_min = 0.5
+scale_amount_max = 0.5
+script = SubResource("GDScript_bjjef")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(5, 5)

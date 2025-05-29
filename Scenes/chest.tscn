@@ -1,0 +1,98 @@
+[gd_scene load_steps=11 format=3 uid="uid://dx57esbgi73u6"]
+
+[ext_resource type="Texture2D" uid="uid://ckil6jqtpokrv" path="res://assests/Spritesheet.png" id="1_lyb87"]
+
+[sub_resource type="GDScript" id="GDScript_lyb87"]
+script/source = "extends Area2D
+
+var player_near = false
+var used = false  # So it only triggers once
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	$AnimatedSprite2D.frame = 0
+
+func _process(delta):
+	if player_near and Input.is_action_just_pressed(\"interact\") and not used:
+		used = true
+		$AnimatedSprite2D.play(\"default\")
+		await $AnimatedSprite2D.animation_finished
+		print(Coins.coins + Coins.addcoins)
+		queue_free()
+
+func _on_body_entered(body: Node2D) -> void:
+	if body.is_in_group(\"Player\"):
+		player_near = true
+
+
+func _on_body_exited(body: Node2D) -> void:
+	if body.is_in_group(\"Player\"):
+		player_near = false
+"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cjfl1"]
+atlas = ExtResource("1_lyb87")
+region = Rect2(96, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bagqn"]
+atlas = ExtResource("1_lyb87")
+region = Rect2(112, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pmguq"]
+atlas = ExtResource("1_lyb87")
+region = Rect2(128, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dq33m"]
+atlas = ExtResource("1_lyb87")
+region = Rect2(144, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j6qf6"]
+atlas = ExtResource("1_lyb87")
+region = Rect2(160, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_25pds"]
+atlas = ExtResource("1_lyb87")
+region = Rect2(176, 128, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uovm1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cjfl1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bagqn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pmguq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dq33m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j6qf6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_25pds")
+}],
+"loop": false,
+"name": &"default",
+"speed": 7.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lyb87"]
+radius = 10.75
+
+[node name="chest" type="Area2D"]
+scale = Vector2(0.6, 0.6)
+script = SubResource("GDScript_lyb87")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_uovm1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(1, 0)
+shape = SubResource("CircleShape2D_lyb87")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

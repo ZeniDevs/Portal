@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://ns3fa7bkmwek"]
+[gd_scene load_steps=27 format=3 uid="uid://ns3fa7bkmwek"]
 
 [ext_resource type="Texture2D" uid="uid://ba5dg03jleghv" path="res://assests/marsh-sci-fi/scifi/anims/scifi_marine_die_1.png" id="1_f1ek2"]
 [ext_resource type="Script" uid="uid://uhyiyl76qkln" path="res://scripts/player.gd" id="1_fd4e3"]
@@ -16,6 +16,10 @@
 [ext_resource type="Texture2D" uid="uid://bvs5fnywxwrm4" path="res://assests/marsh-sci-fi/scifi/anims/scifi_marine_run_4.png" id="11_igrcy"]
 [ext_resource type="Texture2D" uid="uid://cdw68dueuol3d" path="res://assests/marsh-sci-fi/scifi/anims/scifi_marine_run_5.png" id="12_fs7ks"]
 [ext_resource type="Texture2D" uid="uid://cag5muj4c2jkj" path="res://assests/marsh-sci-fi/scifi/anims/scifi_marine_run_6.png" id="13_l6n3p"]
+[ext_resource type="FontFile" uid="uid://c0j4rsag0byvt" path="res://assests/haldenweg/Haldenweg.otf" id="17_qqcod"]
+[ext_resource type="Texture2D" uid="uid://xn5pdvtdp7eu" path="res://assests/tiny-spaceships/under.png" id="18_l6n3p"]
+[ext_resource type="Texture2D" uid="uid://beh4y2dxdrubw" path="res://assests/tiny-spaceships/over.png" id="19_olqyp"]
+[ext_resource type="Texture2D" uid="uid://cp0sqdtyew42m" path="res://assests/tiny-spaceships/progress.png" id="20_wpjfl"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_f60y1"]
 animations = [{
@@ -98,22 +102,6 @@ animations = [{
 radius = 12.0
 height = 42.0
 
-[sub_resource type="Animation" id="Animation_fd4e3"]
-resource_name = "new_animation"
-length = 2.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:value")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 10.0]
-}
-
 [sub_resource type="Animation" id="Animation_qqcod"]
 length = 0.001
 tracks/0/type = "value"
@@ -129,11 +117,29 @@ tracks/0/keys = {
 "values": [10.0]
 }
 
+[sub_resource type="Animation" id="Animation_fd4e3"]
+resource_name = "new_animation"
+length = 6.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 10.0]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qqcod"]
 _data = {
 &"RESET": SubResource("Animation_qqcod"),
 &"new_animation": SubResource("Animation_fd4e3")
 }
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_l6n3p"]
 
 [node name="player" type="CharacterBody2D" groups=["Player"]]
 scale = Vector2(0.6, 0.6)
@@ -154,16 +160,67 @@ shape = SubResource("CapsuleShape2D_v0iea")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer"]
-offset_left = 1.0
-offset_top = 73.0
-offset_right = 261.0
-offset_bottom = 100.0
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_top = -2.0
+offset_right = 258.0
+offset_bottom = 29.0
+theme_override_fonts/font = ExtResource("17_qqcod")
+theme_override_font_sizes/font_size = 30
+text = "              Health"
+metadata/_edit_use_anchors_ = true
+
+[node name="health" type="TextureProgressBar" parent="CanvasLayer/Label"]
+offset_top = 24.7824
+offset_right = 47.0
+offset_bottom = 33.7824
+scale = Vector2(5.50115, 4.13041)
 max_value = 10.0
 value = 10.0
 rounded = true
+texture_under = ExtResource("18_l6n3p")
+texture_over = ExtResource("19_olqyp")
+texture_progress = ExtResource("20_wpjfl")
+metadata/_edit_use_anchors_ = true
+
+[node name="power" type="Label" parent="CanvasLayer"]
+offset_left = 49.0
+offset_top = 73.0
+offset_right = 217.0
+offset_bottom = 104.0
+theme_override_fonts/font = ExtResource("17_qqcod")
+theme_override_font_sizes/font_size = 30
+text = "Double Bullet's"
+metadata/_edit_use_anchors_ = true
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer"]
+modulate = Color(0, 0.779954, 0.822315, 1)
+offset_top = 100.0
+offset_right = 260.0
+offset_bottom = 135.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("17_qqcod")
+theme_override_font_sizes/font_size = 30
+max_value = 10.0
+step = 2.0
+value = 10.0
+rounded = true
+show_percentage = false
+metadata/_edit_use_anchors_ = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/ProgressBar"]
 libraries = {
 &"": SubResource("AnimationLibrary_qqcod")
 }
+
+[node name="regen" type="Timer" parent="."]
+wait_time = 0.6
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("SegmentShape2D_l6n3p")
+
+[connection signal="timeout" from="regen" to="." method="_on_regen_timeout"]
