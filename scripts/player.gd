@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 @onready var anime: AnimatedSprite2D = $AnimatedSprite2D
-var SPEED = 170.0
+var SPEED = 120.0
 var JUMP_VELOCITY = -250.0
 var GRAVITY = 600.0  # You can tweak thisO
 @export var can_move :bool = true

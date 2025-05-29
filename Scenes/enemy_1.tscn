@@ -1,0 +1,106 @@
+[gd_scene load_steps=12 format=3 uid="uid://csljyh676uovl"]
+
+[ext_resource type="Script" uid="uid://8pjhc5h8khb5" path="res://scripts/enemy_1.gd" id="1_0a874"]
+[ext_resource type="Texture2D" uid="uid://ckil6jqtpokrv" path="res://assests/Spritesheet.png" id="1_jwqgc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0a874"]
+atlas = ExtResource("1_jwqgc")
+region = Rect2(0, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lssre"]
+atlas = ExtResource("1_jwqgc")
+region = Rect2(16, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wlnc2"]
+atlas = ExtResource("1_jwqgc")
+region = Rect2(32, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hmo6u"]
+atlas = ExtResource("1_jwqgc")
+region = Rect2(48, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_arec4"]
+atlas = ExtResource("1_jwqgc")
+region = Rect2(64, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v73nf"]
+atlas = ExtResource("1_jwqgc")
+region = Rect2(80, 128, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_op0mk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0a874")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lssre")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wlnc2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hmo6u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_arec4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v73nf")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 7.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jwqgc"]
+radius = 6.83537
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0a874"]
+radius = 49.5025
+
+[node name="enemy 1" type="CharacterBody2D"]
+scale = Vector2(1.6, 1.6)
+script = ExtResource("1_0a874")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_op0mk")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.613959
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.333333, -0.333333)
+shape = SubResource("CircleShape2D_jwqgc")
+
+[node name="Area2D" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visible = false
+shape = SubResource("CircleShape2D_0a874")
+
+[node name="exit" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="exit"]
+visible = false
+shape = SubResource("CircleShape2D_0a874")
+
+[node name="left" type="RayCast2D" parent="."]
+visible = false
+rotation = -0.000147177
+target_position = Vector2(-22, -0.00323789)
+
+[node name="right" type="RayCast2D" parent="."]
+visible = false
+rotation = 1.57105
+target_position = Vector2(-0.00559498, -22)
+
+[node name="down" type="RayCast2D" parent="."]
+visible = false
+target_position = Vector2(0, 22)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="exit" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="exit" to="." method="_on_exit_body_exited"]
