@@ -170,6 +170,7 @@ text = "              Health"
 metadata/_edit_use_anchors_ = true
 
 [node name="health" type="TextureProgressBar" parent="CanvasLayer/Label"]
+layout_mode = 0
 offset_top = 24.7824
 offset_right = 47.0
 offset_bottom = 33.7824
@@ -212,6 +213,26 @@ metadata/_edit_use_anchors_ = true
 libraries = {
 &"": SubResource("AnimationLibrary_qqcod")
 }
+
+[node name="ocin" type="Label" parent="CanvasLayer"]
+offset_left = 1022.0
+offset_top = 0.0648173
+offset_right = 1091.0
+offset_bottom = 31.0648
+rotation = -0.000921629
+scale = Vector2(1.01926, 1.11631)
+theme_override_fonts/font = ExtResource("17_qqcod")
+theme_override_font_sizes/font_size = 30
+text = "Coins:"
+
+[node name="coincounter" type="Label" parent="CanvasLayer"]
+offset_left = 1098.0
+offset_top = 3.11581
+offset_right = 1148.0
+offset_bottom = 34.1158
+scale = Vector2(1.06847, 1.04978)
+theme_override_fonts/font = ExtResource("17_qqcod")
+theme_override_font_sizes/font_size = 30
 
 [node name="regen" type="Timer" parent="."]
 wait_time = 0.6

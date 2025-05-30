@@ -15,15 +15,16 @@ func _ready() -> void:
 	$CollisionShape2D.disabled = false
 
 func _physics_process(delta: float) -> void:
+	$CanvasLayer/coincounter.text = str(Coins.coins)
 	if health.value <= 0:
 		$CollisionShape2D.disabled = true
 	else:
 		if can_move:
 			move()
-	if health.value < 10:
-		$regen.start()
-	elif health.value == 10:
-		$regen.stop()
+		if health.value < 10:
+			$regen.start()
+		elif health.value == 10:
+			$regen.stop()
 
 func move():
 	# Add gravity

@@ -87,14 +87,12 @@ visible = false
 shape = SubResource("CircleShape2D_0a874")
 
 [node name="left" type="RayCast2D" parent="."]
-visible = false
 rotation = -0.000147177
-target_position = Vector2(-22, -0.00323789)
+target_position = Vector2(-15, -0.00220765)
 
 [node name="right" type="RayCast2D" parent="."]
-visible = false
 rotation = 1.57105
-target_position = Vector2(-0.00559498, -22)
+target_position = Vector2(-0.00364724, -14.375)
 
 [node name="down" type="RayCast2D" parent="."]
 target_position = Vector2(0, 20)
@@ -118,7 +116,11 @@ metadata/_edit_use_anchors_ = true
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.6
 
+[node name="hit" type="Timer" parent="."]
+wait_time = 0.663
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="exit" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="exit" to="." method="_on_exit_body_exited"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="hit" to="." method="_on_hit_timeout"]

@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://dx57esbgi73u6"]
+[gd_scene load_steps=12 format=3 uid="uid://dx57esbgi73u6"]
 
 [ext_resource type="Texture2D" uid="uid://ckil6jqtpokrv" path="res://assests/Spritesheet.png" id="1_lyb87"]
+[ext_resource type="FontFile" uid="uid://c0j4rsag0byvt" path="res://assests/haldenweg/Haldenweg.otf" id="2_cjfl1"]
 
 [sub_resource type="GDScript" id="GDScript_lyb87"]
 script/source = "extends Area2D
@@ -17,8 +18,12 @@ func _process(delta):
 		used = true
 		$AnimatedSprite2D.play(\"default\")
 		await $AnimatedSprite2D.animation_finished
-		print(Coins.coins + Coins.addcoins)
+		Coins.coins = Coins.coins + Coins.addcoins
 		queue_free()
+	if player_near:    
+		$Label.visible = true
+	else:
+		$Label.visible = false
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group(\"Player\"):
@@ -94,5 +99,15 @@ sprite_frames = SubResource("SpriteFrames_uovm1")
 visible = false
 position = Vector2(1, 0)
 shape = SubResource("CircleShape2D_lyb87")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -23.3333
+offset_top = -13.3333
+offset_right = 78.6667
+offset_bottom = 9.66667
+scale = Vector2(0.472454, 0.442711)
+theme_override_fonts/font = ExtResource("2_cjfl1")
+theme_override_font_sizes/font_size = 20
+text = "'E' to interact"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

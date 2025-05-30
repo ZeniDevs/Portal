@@ -10,6 +10,8 @@ var speed: int = 70
 var dir: int = -1
 var detec: bool = false
 var canjump : bool = true
+var can_hit: bool = true
+
 
 func _ready() -> void: 
 	player = get_tree().get_first_node_in_group("Player")
@@ -40,6 +42,22 @@ func chase_player(delta: float) -> void:
 	var direction = (player.global_position - global_position).normalized()
 	velocity.x = direction.x * speed
 	velocity.y += 600 * delta  # gravity
+	
+	if can_hit:
+		if $left.is_colliding():
+			var hit = $left.get_collider()
+			if hit and hit.is_in_group("Player"):
+				can_hit = false
+				hit.deplet()
+				$hit.start()
+
+		elif $right.is_colliding():
+			var hit = $right.get_collider()
+			if hit and hit.is_in_group("Player"):
+				can_hit = false
+				hit.deplet()
+				$hit.start()
+
 
 func wander(delta: float) -> void:
 	# Update ray direction
@@ -67,3 +85,7 @@ func deplet():
 
 func _on_timer_timeout() -> void:
 	canjump = true
+
+
+func _on_hit_timeout() -> void:
+	can_hit = true
