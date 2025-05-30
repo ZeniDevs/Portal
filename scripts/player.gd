@@ -26,6 +26,12 @@ func _physics_process(delta: float) -> void:
 		elif health.value == 10:
 			$regen.stop()
 
+	if Input.is_action_just_pressed("shop"):
+		if $CanvasLayer/Panel.visible == true:
+			$CanvasLayer/Panel.visible = false
+		else:
+			$CanvasLayer/Panel.visible = true
+
 func move():
 	# Add gravity
 	if not is_on_floor():

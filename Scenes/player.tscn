@@ -234,6 +234,42 @@ scale = Vector2(1.06847, 1.04978)
 theme_override_fonts/font = ExtResource("17_qqcod")
 theme_override_font_sizes/font_size = 30
 
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+offset_left = 196.0
+offset_top = 96.0
+offset_right = 981.0
+offset_bottom = 544.0
+
+[node name="health" type="Button" parent="CanvasLayer/Panel"]
+layout_mode = 0
+offset_left = 571.0
+offset_top = 83.0
+offset_right = 669.0
+offset_bottom = 139.0
+theme_override_fonts/font = ExtResource("17_qqcod")
+theme_override_font_sizes/font_size = 30
+text = "BUY"
+
+[node name="dmg" type="Button" parent="CanvasLayer/Panel"]
+layout_mode = 0
+offset_left = 571.0
+offset_top = 183.0
+offset_right = 669.0
+offset_bottom = 239.0
+theme_override_fonts/font = ExtResource("17_qqcod")
+theme_override_font_sizes/font_size = 30
+text = "BUY"
+
+[node name="speed" type="Button" parent="CanvasLayer/Panel"]
+layout_mode = 0
+offset_left = 571.0
+offset_top = 283.0
+offset_right = 669.0
+offset_bottom = 339.0
+theme_override_fonts/font = ExtResource("17_qqcod")
+theme_override_font_sizes/font_size = 30
+text = "BUY"
+
 [node name="regen" type="Timer" parent="."]
 wait_time = 0.6
 
