@@ -19,11 +19,18 @@ func _process(delta):
 		$AnimatedSprite2D.play(\"default\")
 		await $AnimatedSprite2D.animation_finished
 		Coins.coins = Coins.coins + Coins.addcoins
-		queue_free()
-	if player_near:    
-		$Label.visible = true
+		$Label.queue_free()
+
+	if not used:
+		if player_near:    
+			$Label.visible = true
+		else:
+			$Label.visible = false
+
+	if visible == false:
+		$CollisionShape2D.disabled = true
 	else:
-		$Label.visible = false
+		$CollisionShape2D.disabled = false
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group(\"Player\"):

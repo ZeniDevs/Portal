@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://ns3fa7bkmwek"]
+[gd_scene load_steps=29 format=3 uid="uid://ns3fa7bkmwek"]
 
 [ext_resource type="Texture2D" uid="uid://ba5dg03jleghv" path="res://assests/marsh-sci-fi/scifi/anims/scifi_marine_die_1.png" id="1_f1ek2"]
 [ext_resource type="Script" uid="uid://uhyiyl76qkln" path="res://scripts/player.gd" id="1_fd4e3"]
@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://xn5pdvtdp7eu" path="res://assests/tiny-spaceships/under.png" id="18_l6n3p"]
 [ext_resource type="Texture2D" uid="uid://beh4y2dxdrubw" path="res://assests/tiny-spaceships/over.png" id="19_olqyp"]
 [ext_resource type="Texture2D" uid="uid://cp0sqdtyew42m" path="res://assests/tiny-spaceships/progress.png" id="20_wpjfl"]
+[ext_resource type="Script" uid="uid://ceqhrssdo61pu" path="res://scripts/shop.gd" id="21_olqyp"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_f60y1"]
 animations = [{
@@ -139,6 +140,24 @@ _data = {
 &"new_animation": SubResource("Animation_fd4e3")
 }
 
+[sub_resource type="GDScript" id="GDScript_olqyp"]
+script/source = "extends Button
+
+@onready var dmg: Button = $\"../dmg\"
+@onready var speed: Button = $\"../speed\"
+
+
+func _process(delta: float) -> void:
+	if $\"..\".visible == false:
+		disabled = true 
+		dmg.disabled = true
+		speed.disabled = true
+	else:
+		disabled = false
+		dmg.disabled = false
+		speed.disabled = false
+"
+
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_l6n3p"]
 
 [node name="player" type="CharacterBody2D" groups=["Player"]]
@@ -235,40 +254,138 @@ theme_override_fonts/font = ExtResource("17_qqcod")
 theme_override_font_sizes/font_size = 30
 
 [node name="Panel" type="Panel" parent="CanvasLayer"]
+visible = false
 offset_left = 196.0
 offset_top = 96.0
 offset_right = 981.0
 offset_bottom = 544.0
+script = ExtResource("21_olqyp")
 
 [node name="health" type="Button" parent="CanvasLayer/Panel"]
 layout_mode = 0
-offset_left = 571.0
+offset_left = 566.0
 offset_top = 83.0
-offset_right = 669.0
+offset_right = 664.0
 offset_bottom = 139.0
+mouse_force_pass_scroll_events = false
+mouse_default_cursor_shape = 2
 theme_override_fonts/font = ExtResource("17_qqcod")
 theme_override_font_sizes/font_size = 30
 text = "BUY"
+script = SubResource("GDScript_olqyp")
 
 [node name="dmg" type="Button" parent="CanvasLayer/Panel"]
 layout_mode = 0
-offset_left = 571.0
+offset_left = 566.0
 offset_top = 183.0
-offset_right = 669.0
+offset_right = 664.0
 offset_bottom = 239.0
+mouse_force_pass_scroll_events = false
+mouse_default_cursor_shape = 2
 theme_override_fonts/font = ExtResource("17_qqcod")
 theme_override_font_sizes/font_size = 30
 text = "BUY"
 
 [node name="speed" type="Button" parent="CanvasLayer/Panel"]
 layout_mode = 0
-offset_left = 571.0
+offset_left = 566.0
 offset_top = 283.0
-offset_right = 669.0
+offset_right = 664.0
 offset_bottom = 339.0
+mouse_force_pass_scroll_events = false
+mouse_default_cursor_shape = 2
 theme_override_fonts/font = ExtResource("17_qqcod")
 theme_override_font_sizes/font_size = 30
 text = "BUY"
+
+[node name="shop" type="Label" parent="CanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -268.5
+offset_right = -209.5
+offset_bottom = 31.0
+grow_horizontal = 2
+scale = Vector2(1.98239, 1.6225)
+theme_override_fonts/font = ExtResource("17_qqcod")
+theme_override_font_sizes/font_size = 30
+text = "Shop"
+
+[node name="healt" type="Label" parent="CanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -2.5
+offset_top = 90.0
+offset_right = 74.5
+offset_bottom = 121.0
+grow_horizontal = 2
+scale = Vector2(1.98239, 1.6225)
+theme_override_fonts/font = ExtResource("17_qqcod")
+theme_override_font_sizes/font_size = 30
+text = "Health"
+
+[node name="Label" type="Label" parent="CanvasLayer/Panel/healt"]
+layout_mode = 0
+offset_left = 143.766
+offset_right = 183.766
+offset_bottom = 23.0
+scale = Vector2(0.794523, 0.940862)
+theme_override_fonts/font = ExtResource("17_qqcod")
+theme_override_font_sizes/font_size = 30
+text = "0/3"
+
+[node name="dmg2" type="Label" parent="CanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -170.5
+offset_top = 189.0
+offset_right = -5.5
+offset_bottom = 220.0
+grow_horizontal = 2
+scale = Vector2(1.98239, 1.6225)
+theme_override_fonts/font = ExtResource("17_qqcod")
+theme_override_font_sizes/font_size = 30
+text = "Bullet damage"
+
+[node name="Label" type="Label" parent="CanvasLayer/Panel/dmg2"]
+layout_mode = 0
+offset_left = 226.999
+offset_right = 281.999
+offset_bottom = 31.0
+scale = Vector2(0.794523, 0.940862)
+theme_override_fonts/font = ExtResource("17_qqcod")
+theme_override_font_sizes/font_size = 30
+text = "0/3"
+
+[node name="sped" type="Label" parent="CanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -232.5
+offset_top = 288.0
+offset_right = -38.5
+offset_bottom = 319.0
+grow_horizontal = 2
+scale = Vector2(1.98239, 1.6225)
+theme_override_fonts/font = ExtResource("17_qqcod")
+theme_override_font_sizes/font_size = 30
+text = "Movement speed"
+
+[node name="Label" type="Label" parent="CanvasLayer/Panel/sped"]
+layout_mode = 0
+offset_left = 258.275
+offset_right = 313.275
+offset_bottom = 31.0
+scale = Vector2(0.794523, 0.940862)
+theme_override_fonts/font = ExtResource("17_qqcod")
+theme_override_font_sizes/font_size = 30
+text = "0/3"
 
 [node name="regen" type="Timer" parent="."]
 wait_time = 0.6
@@ -280,4 +397,7 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("SegmentShape2D_l6n3p")
 
+[connection signal="pressed" from="CanvasLayer/Panel/health" to="CanvasLayer/Panel" method="_on_health_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/dmg" to="CanvasLayer/Panel" method="_on_dmg_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/speed" to="CanvasLayer/Panel" method="_on_speed_pressed"]
 [connection signal="timeout" from="regen" to="." method="_on_regen_timeout"]

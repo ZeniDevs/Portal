@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://dgoyjjayx8cfc"]
+
+[ext_resource type="Texture2D" uid="uid://ckil6jqtpokrv" path="res://assests/Spritesheet.png" id="1_ewrq5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_on02d"]
+atlas = ExtResource("1_ewrq5")
+region = Rect2(112, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qm417"]
+atlas = ExtResource("1_ewrq5")
+region = Rect2(128, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qruad"]
+atlas = ExtResource("1_ewrq5")
+region = Rect2(144, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8gyqa"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_on02d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qm417")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qruad")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.0
+}]
+
+[node name="grass" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_8gyqa")
+autoplay = "default"
+frame_progress = 0.319904

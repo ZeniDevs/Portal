@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 @onready var anime: AnimatedSprite2D = $AnimatedSprite2D
-var SPEED = 120.0
+var SPEED = Coins.spd
 var JUMP_VELOCITY = -250.0
 var GRAVITY = 600.0
 @export var can_move :bool = true
@@ -13,6 +13,9 @@ var bullet = preload("res://Scenes/bullet.tscn")
 
 func _ready() -> void: 
 	$CollisionShape2D.disabled = false
+	health.max_value = Coins.hp
+	health.value = Coins.hp  # Or Coins.current_hp if you're tracking it separately
+
 
 func _physics_process(delta: float) -> void:
 	$CanvasLayer/coincounter.text = str(Coins.coins)
@@ -21,16 +24,21 @@ func _physics_process(delta: float) -> void:
 	else:
 		if can_move:
 			move()
-		if health.value < 10:
+		if health.value < Coins.hp:
 			$regen.start()
-		elif health.value == 10:
+		elif health.value == Coins.hp:
 			$regen.stop()
+
+	if Input.is_action_just_pressed("he"):
+		Coins.coins = 100
 
 	if Input.is_action_just_pressed("shop"):
 		if $CanvasLayer/Panel.visible == true:
 			$CanvasLayer/Panel.visible = false
 		else:
 			$CanvasLayer/Panel.visible = true
+
+	SPEED = Coins.spd
 
 func move():
 	# Add gravity
@@ -61,7 +69,6 @@ func move():
 		if Input.is_action_just_pressed("shoot"):
 			shoot()
 
-	
 	if Input.is_action_just_pressed("double") and $CanvasLayer/ProgressBar.value == 10:
 		ddshoot()
 		$CanvasLayer/ProgressBar.value = 0
@@ -120,3 +127,6 @@ func deplet():
 
 func _on_regen_timeout() -> void:
 	health.value += randi_range(1 , 3)
+
+func jum():
+	velocity.y += 120
