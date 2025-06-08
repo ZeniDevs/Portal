@@ -34,4 +34,4 @@ animations = [{
 [node name="grass" type="AnimatedSprite2D"]
 sprite_frames = SubResource("SpriteFrames_8gyqa")
 autoplay = "default"
-frame_progress = 0.319904
+frame_progress = 0.415428

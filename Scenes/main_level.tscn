@@ -25,8 +25,6 @@ func _ready() -> void:
 	$portal/portal.play(\"die\")
 	await $portal/portal.animation_finished
 	$portal/portal.queue_free()
-	$MAP/ColorRect/AnimationPlayer.play(\"end\")
-  
 
 func _physics_process(_delta: float) -> void:
 	var enec = get_tree().get_nodes_in_group(\"enemy\")
@@ -57,25 +55,24 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group(\"Player\"):
 		body.position = Vector2(628, -15)
 		await get_tree().create_timer(0.1).timeout
-		$portal/Area2D/CollisionShape2D.disabled = false
 		done += 1
 
 func _on__body_entered(body: Node2D) -> void:
 	if body.is_in_group(\"Player\"):
 		body.position = Vector2(628, -15)
 		await get_tree().create_timer(0.1).timeout
-		$portal/Area2D/CollisionShape2D.disabled = false
 		done += 1
 
 
 func _on_end_body_entered(body: Node2D) -> void:
+	$portal/portal7.play(\"die\")
 	$player/player.visible = false
 	$MAP/ColorRect/AnimationPlayer.play(\"end\")
 	await $MAP/ColorRect/AnimationPlayer.animation_finished
 	get_tree().change_scene_to_file(\"res://Scenes/lvl_3.tscn\")
 "
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ikcpc"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lwkuy"]
 texture = ExtResource("1_q2fht")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(8.2735, -9.53251, 8, 8, -8, 8)
@@ -301,7 +298,7 @@ scenes/1/scene = ExtResource("2_lwkuy")
 
 [sub_resource type="TileSet" id="TileSet_5erdv"]
 physics_layer_0/collision_layer = 1
-sources/0 = SubResource("TileSetAtlasSource_ikcpc")
+sources/0 = SubResource("TileSetAtlasSource_lwkuy")
 sources/1 = SubResource("TileSetScenesCollectionSource_tqiex")
 
 [sub_resource type="Animation" id="Animation_olvls"]
@@ -318,6 +315,22 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(0, 0, 0, 1)]
 }
+
+[sub_resource type="Animation" id="Animation_lwkuy"]
+resource_name = "end"
+length = 4.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3.4, 4.46667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1), Color(0, 0, 0, 1)]
+}
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
@@ -327,20 +340,8 @@ tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
+"update": 1,
 "values": [false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0, 0, 0, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_rf4qq"]
@@ -353,7 +354,7 @@ tracks/0/path = NodePath(".:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.0333333, 0.733333, 1.63333),
+"times": PackedFloat32Array(0.0333333, 0.733333, 1.66667),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Color(0, 0, 0, 1), Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
@@ -365,38 +366,10 @@ tracks/1/path = NodePath("../../player/player:can_move")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.02, 1.4),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [false, true]
-}
-
-[sub_resource type="Animation" id="Animation_lwkuy"]
-resource_name = "end"
-length = 2.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.166667, 1.13333, 1.83333),
-"transitions": PackedFloat32Array(1, 1.8025, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(0, 0, 0, 1), Color(0, 0, 0, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../../player/player:can_move")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.166667),
+"times": PackedFloat32Array(1.66),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [false]
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_md3j3"]
@@ -427,7 +400,6 @@ script/source = "extends Area2D
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group(\"Player\"):
-		$\"../../Area2D/CollisionShape2D\".disabled = true
 		body.position = Vector2(1758 , 810)
 		
 "
@@ -447,7 +419,7 @@ func _on_area_entered(_area: Area2D) -> void:
 "
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_lwkuy"]
-b = Vector2(1652, 7)
+b = Vector2(1648, 5)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2jcip"]
 height = 47.9987
@@ -471,7 +443,6 @@ layer_2/name = "Layer2"
 layer_2/tile_data = PackedInt32Array(1245300, 524288, 2, 1245308, 524288, 2, 1245313, 720896, 4, 1114243, 786432, 131072, 1179779, 786432, 131073, 1245315, 786432, 196612, 1245329, 786432, 196612, 1179793, 786432, 131074, 1114257, 786432, 131072, 1114226, 786432, 131072, 1245298, 786432, 196612, 1179762, 786432, 131074, -65499, 1, 65536, -65504, 1, 65536, -65513, 1, 65536, -65516, 1, 65536, -65515, 1, 65536, -65523, 1, 65536, 3801210, 589824, 4, 3801200, 393216, 4, 3801198, 458752, 4, 3801213, 458752, 268435460, 3801217, 720896, 6, 3801204, 720896, 268435463, 3801195, 524288, 9, 3801206, 458752, 9, 3801226, 458752, 9, 3801222, 589824, 4, 3801231, 720896, 4, 3801232, 589824, 0, 3801228, 655360, 0, 3801224, 655360, 7, 3342487, 393216, 6, 3408030, 458752, 6, 3342478, 458752, 6, 3866787, 786432, 5, 3866790, 458752, 5, 3866788, 393216, 5, 3866789, 393216, 5, 3932323, 393216, 6, 4194460, 524288, 9, 4194463, 458752, 4, 4194464, 393216, 4, 4194468, 589824, 0, 4194469, 655360, 0, 4194470, 655360, 4, 4194474, 720896, 4, 3735734, 720896, 4)
 
 [node name="ColorRect" type="ColorRect" parent="MAP"]
-modulate = Color(0, 0, 0, 1)
 z_index = 10
 anchors_preset = -1
 anchor_right = 1.351
@@ -488,7 +459,6 @@ color = Color(0, 0, 0, 1)
 libraries = {
 &"": SubResource("AnimationLibrary_md3j3")
 }
-autoplay = "intro"
 
 [node name="player" type="Node" parent="."]
 
@@ -499,6 +469,8 @@ can_move = false
 
 [node name="Camera2D" type="Camera2D" parent="player/player"]
 zoom = Vector2(2.5, 2.5)
+position_smoothing_enabled = true
+rotation_smoothing_enabled = true
 
 [node name="enimes" type="Node" parent="."]
 
@@ -526,6 +498,7 @@ scale = Vector2(1, 1)
 animation = &"emerge"
 
 [node name="portal2" parent="portal" instance=ExtResource("2_ikcpc")]
+visible = false
 position = Vector2(736, 33)
 rotation = -1.58337
 scale = Vector2(1, 1)
@@ -539,6 +512,7 @@ position = Vector2(-0.0377139, 2.99976)
 shape = SubResource("CapsuleShape2D_lwkuy")
 
 [node name="portal3" parent="portal" instance=ExtResource("2_ikcpc")]
+visible = false
 position = Vector2(778, -58)
 rotation = -0.00649083
 scale = Vector2(1, 1)
@@ -588,6 +562,7 @@ scale = Vector2(1, 1)
 autoplay = "idle"
 
 [node name="portal7" parent="portal" instance=ExtResource("2_ikcpc")]
+visible = false
 position = Vector2(698, -29)
 rotation = 6.29058
 scale = Vector2(1, 1)

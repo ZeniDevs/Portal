@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://ns3fa7bkmwek"]
+[gd_scene load_steps=30 format=3 uid="uid://ns3fa7bkmwek"]
 
 [ext_resource type="Texture2D" uid="uid://ba5dg03jleghv" path="res://assests/marsh-sci-fi/scifi/anims/scifi_marine_die_1.png" id="1_f1ek2"]
 [ext_resource type="Script" uid="uid://uhyiyl76qkln" path="res://scripts/player.gd" id="1_fd4e3"]
@@ -21,6 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://beh4y2dxdrubw" path="res://assests/tiny-spaceships/over.png" id="19_olqyp"]
 [ext_resource type="Texture2D" uid="uid://cp0sqdtyew42m" path="res://assests/tiny-spaceships/progress.png" id="20_wpjfl"]
 [ext_resource type="Script" uid="uid://ceqhrssdo61pu" path="res://scripts/shop.gd" id="21_olqyp"]
+[ext_resource type="AudioStream" uid="uid://ge53hqoh6vot" path="res://assests/laser-gun-81720.mp3" id="22_wpjfl"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_f60y1"]
 animations = [{
@@ -396,6 +397,9 @@ collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("SegmentShape2D_l6n3p")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("22_wpjfl")
 
 [connection signal="pressed" from="CanvasLayer/Panel/health" to="CanvasLayer/Panel" method="_on_health_pressed"]
 [connection signal="pressed" from="CanvasLayer/Panel/dmg" to="CanvasLayer/Panel" method="_on_dmg_pressed"]

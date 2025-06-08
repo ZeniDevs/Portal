@@ -77,12 +77,14 @@ func move():
 	move_and_slide()
 
 func shoot():
+	
 	can_shoot = true
 	anime.play("shoot")
-
+	$AudioStreamPlayer2D.play()
 	var bullet_ins = bullet.instantiate()
 
 	# Offset for bullet spawn (in front of player and slightly above)
+	
 	var offset = Vector2(19, -16)  # 20 to the side, 10 up
 	offset.x *= -1 if anime.flip_h else 1
 	bullet_ins.position = global_position + offset
@@ -98,6 +100,8 @@ func shoot():
 
 func ddshoot():
 	anime.play("shoot")
+	$AudioStreamPlayer2D.play()
+	$AudioStreamPlayer2D.play()
 	var bullet_ins = bullet.instantiate()
 	var bulleyt_ins2 = bullet.instantiate()
 	

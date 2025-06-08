@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=3 uid="uid://dxpqcwma2yset"]
+
+[ext_resource type="FontFile" uid="uid://c0j4rsag0byvt" path="res://assests/haldenweg/Haldenweg.otf" id="1_w5npp"]
+
+[node name="ttt" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1156.0
+offset_bottom = 658.0
+color = Color(0.995147, 0.866433, 0.890436, 1)
+
+[node name="Label" type="Label" parent="."]
+offset_left = 208.0
+offset_top = 99.0
+offset_right = 913.0
+offset_bottom = 502.0
+theme_override_colors/font_color = Color(0.0941176, 0, 0.14902, 1)
+theme_override_fonts/font = ExtResource("1_w5npp")
+theme_override_font_sizes/font_size = 40
+text = "Hey, Thanks for playing but sorry i coudn't 
+complete This game because of some \"Personal\"
+Issues. If i would have done there would have 
+been a Final Boss Battle, sorry.
+
+
+
+
+                                                                            -Zeni"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(561, 302)
+zoom = Vector2(1.5, 1.5)

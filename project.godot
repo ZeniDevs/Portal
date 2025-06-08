@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Doom: The Portal Saga"
-run/main_scene="uid://ccsel7f06vcj4"
+run/main_scene="uid://berl13hh762uw"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 Dmg="*res://scripts/dmg.gd"
 Coins="*res://scripts/coins.gd"
 Shop="*res://scripts/shop.gd"
+Bgm="*res://Scenes/bgm.tscn"
 
 [display]
 

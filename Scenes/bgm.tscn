@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://chxepha1dmr2v"]
+
+[ext_resource type="AudioStream" uid="uid://b7mmegis3fwlx" path="res://assests/1. Into The Spaceship.wav" id="1_2kasm"]
+
+[node name="bgm" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_2kasm")
+volume_db = -3.962
+pitch_scale = 0.85
+autoplay = true
+playback_type = 1
